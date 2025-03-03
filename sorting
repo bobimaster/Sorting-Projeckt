@@ -1,0 +1,64 @@
+using System;
+class Program
+{
+    static void Main(string[] agrs)
+    {
+        string maxPriseItemName = string.Empty;
+        Product electronics = new Product("3D Printer", 2468);
+        Product food = new Product("Milk", 10);
+        Product drinks = new Product("Absolut Vodka 1L", 30);
+        Product daniel = new Product("Daniel", 1);
+        Product toiletrys = new Product("Toilet Paper", 1500);
+        List<Product> products = new List<Product>();
+        products.Add(electronics);
+        products.Add(food);
+        products.Add(drinks);
+        products.Add(daniel);
+        products.Add(toiletrys);
+        int maxPrise = products[0].GetPrise();
+        foreach(var item in products)
+        {
+            if (item.GetPrise() > maxPrise)
+            {
+                maxPrise = item.GetPrise();
+                maxPriseItemName = item.GetName();
+            }
+        }
+        Console.WriteLine($"The most expensive item is {maxPriseItemName} and it costs {maxPrise} BGN");
+        Console.WriteLine();
+        for (int i = 0; i < products.Count - 1; i++)
+        {
+            for (int k = 0; k < products.Count - 1 - i; k++)
+            {
+                if (products[k].GetPrise() < products[k + 1].GetPrise())
+                {
+                    var temp = products[k];
+                    products[k] = products[k + 1];
+                    products[k + 1] = temp;
+                }
+            }
+        }
+        foreach (var item in products)
+        {
+            Console.WriteLine(item.GetName() + " - " + item.GetPrise() + "BGN");
+        }
+    }
+}
+class Product
+{
+    private string name;
+    private int prise;
+    public Product(string name, int prise)
+    {
+        this.name = name;
+        this.prise = prise;
+    }
+    public int GetPrise()
+    {
+        return prise;
+    }
+    public string GetName()
+    {
+        return name;
+    }
+}
